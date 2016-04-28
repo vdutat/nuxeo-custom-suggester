@@ -1,3 +1,21 @@
+/*
+ * (C) Copyright 2016 Nuxeo SA (http://nuxeo.com/) and others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Contributors:
+ *     vdutat
+ */
 package org.nuxeo.ecm.platform.suggestbox.service.suggesters;
 
 import java.io.Serializable;
@@ -8,8 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.BooleanUtils;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.platform.query.api.PageProvider;
 import org.nuxeo.ecm.platform.query.api.PageProviderService;
 import org.nuxeo.ecm.platform.query.nxql.CoreQueryDocumentPageProvider;
@@ -27,7 +45,7 @@ public class DocumentParameterLookupSuggester implements Suggester {
     protected String providerName = "DEFAULT_DOCUMENT_SUGGESTION";
 
     protected SuggesterDescriptor descriptor;
-    
+
     protected boolean appendWildcard = true;
 
     @Override
@@ -69,7 +87,7 @@ public class DocumentParameterLookupSuggester implements Suggester {
                 suggestions.add(DocumentSuggestion.fromDocumentModel(doc));
             }
             return suggestions;
-        } catch (ClientException e) {
+        } catch (NuxeoException e) {
             throw new SuggestionException(String.format(
                     "Suggester '%s' failed to perform query with input '%s'",
                     descriptor.getName(), userInput), e);
